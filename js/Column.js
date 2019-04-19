@@ -1,8 +1,9 @@
-function Column(name) {
+function Column(id, name) {
   var self = this;
 
-  this.id = randomString();
-  this.name = name;
+  this.id = id;
+  this.name = name || "New task group";
+
   this.element = generateTemplate("column-template", {
     name: this.name,
     id: this.id
@@ -16,7 +17,26 @@ function Column(name) {
       }
 
       if (event.target.classList.contains("add-card")) {
-        self.addCard(new Card(prompt("Enter the name of the card")));
+        var cardName = prompt("Enter the name of the card");
+        event.preventDefault();
+
+        // use built in key-value construct
+        var data = new FormData();
+        data.append("name", cardName);
+        data.append("bootcamp_kanban_column_id", self.id);
+
+        fetch(baseUrl + "/card", {
+          method: "POST",
+          headers: myHeaders,
+          body: data
+        })
+          .then(function(res) {
+            return res.json();
+          })
+          .then(function(resp) {
+            var card = new Card(resp.id, cardName);
+            self.addCard(card);
+          });
       }
     });
 }
@@ -26,6 +46,16 @@ Column.prototype = {
     this.element.querySelector("ul").appendChild(card.element);
   },
   removeColumn: function() {
-    this.element.parentNode.removeChild(this.element);
+    var self = this;
+    fetch(baseUrl + "/column/" + self.id, {
+      method: "DELETE",
+      headers: myHeaders
+    })
+      .then(function(resp) {
+        return resp.json();
+      })
+      .then(function(resp) {
+        self.element.parentNode.removeChild(self.element);
+      });
   }
 };
