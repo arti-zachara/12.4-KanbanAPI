@@ -76,9 +76,12 @@ header .create-column:hover {
 }
 
 .column-container {
+  display: -ms-flexbox;
   display: flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
+  -ms-flex-align: start;
+      align-items: flex-start;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   padding: 10px;
   width: 100%;
 }
@@ -138,5 +141,4 @@ header .create-column:hover {
   padding: 4px 8px;
   margin: 4px 2px;
 }
-
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=style.prefixed.css.map */
