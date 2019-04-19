@@ -1,4 +1,4 @@
-// KLASA KANBAN CARD
+// Card class constructor
 function Card(id, name) {
   var self = this;
 
@@ -6,10 +6,10 @@ function Card(id, name) {
   this.name = name || "New task";
   this.element = generateTemplate(
     "card-template",
-    { description: this.name },
+    { description: this.name, id: this.id },
     "li"
   );
-
+  // events
   this.element
     .querySelector(".card")
     .addEventListener("click", function(event) {
@@ -20,6 +20,7 @@ function Card(id, name) {
       }
     });
 }
+// Card methods
 Card.prototype = {
   removeCard: function() {
     var self = this;

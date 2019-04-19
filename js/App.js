@@ -12,6 +12,8 @@ fetch(baseUrl + "/board", { headers: myHeaders })
     return resp.json();
   })
   .then(function(resp) {
+    var sorter = document.querySelector(".column-container");
+    initSortable(sorter, "kanban-board");
     setupColumns(resp.columns);
   });
 
