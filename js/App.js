@@ -3,8 +3,7 @@ var baseUrl =
   "https://cors-anywhere.herokuapp.com/https://kodilla.com/pl/bootcamp-api";
 var myHeaders = {
   "X-Client-Id": "4007",
-  "X-Auth-Token": "a00c7979c4ace94a0a79a4dbca7e862b",
-  "Content-Type": "application/json"
+  "X-Auth-Token": "a00c7979c4ace94a0a79a4dbca7e862b"
 };
 
 // getting information on board columns

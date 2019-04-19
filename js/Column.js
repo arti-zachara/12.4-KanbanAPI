@@ -10,7 +10,7 @@ function Column(id, name) {
   });
 
   this.element
-    .querySelector("column")
+    .querySelector(".column")
     .addEventListener("click", function(event) {
       if (event.target.classList.contains("btn-delete")) {
         self.removeColumn();
