@@ -14,10 +14,8 @@ document
   .addEventListener("click", function() {
     var nameProvided = prompt("Enter a column name", "New list");
     if (nameProvided != null) {
-      var name = nameProvided;
-
       var data = new FormData();
-      data.append("name", name);
+      data.append("name", nameProvided);
 
       fetch(baseUrl + "/column", {
         method: "POST",
@@ -28,7 +26,7 @@ document
           return resp.json();
         })
         .then(function(resp) {
-          var column = new Column(resp.id, name);
+          var column = new Column(resp.id, nameProvided);
           board.addColumn(column);
         });
     }

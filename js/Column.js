@@ -20,17 +20,46 @@ function Column(id, name) {
         self.removeColumn();
       }
 
+      if (event.target.classList.contains("column-title")) {
+        console.log(self.name);
+        var nameChanged = prompt("Do you want to change the name?", self.name);
+        console.log(nameChanged);
+        if (nameChanged != self.name && nameChanged != null) {
+          event.preventDefault();
+          var newName = nameChanged;
+          console.log(newName);
+          let data = new FormData();
+          data.append("id", self.id);
+          data.append("name", newName);
+          console.log(data.name);
+          fetch(baseUrl + "/column/" + self.id, {
+            method: "PUT",
+            headers: myHeaders,
+            body: data
+          })
+            .then(function(resp) {
+              return resp.json();
+            })
+            .then(function(resp) {
+              console.log(resp.id);
+              self.element.querySelector(
+                resp.id + " .column-title"
+              ).innerHTML = newName;
+            });
+        }
+      }
+
       if (
         event.target.classList.contains("add-card") ||
         event.target.classList.contains("btn-add")
       ) {
         var nameProvided = prompt("Enter the name of the card", "New task");
         if (nameProvided != null) {
-          var cardName = nameProvided;
           event.preventDefault();
+
           // use built in key-value construct
-          var data = new FormData();
-          data.append("name", cardName);
+          let data = new FormData();
+          data.append("name", nameProvided);
           data.append("bootcamp_kanban_column_id", self.id);
 
           fetch(baseUrl + "/card", {
